@@ -14,6 +14,7 @@ python:
 
 install:
   - pip install -q -r requirements.txt
+  - pip install -q -r requirements-test.txt
 
 script:
-  - ./manage.py test
+  - ./coverage.sh

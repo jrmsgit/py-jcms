@@ -21,6 +21,7 @@ matrix:
 
 install:
   - "%PYTHON%\\python.exe -m pip install -q -r requirements.txt"
+  - "%PYTHON%\\python.exe -m pip install -q -r requirements-test.txt"
 
 build: off
 
@@ -28,7 +29,8 @@ before_test:
   - "%PYTHON%\\python.exe --version"
 
 test_script:
-  - "%PYTHON%\\python.exe manage.py test"
+  - "%PYTHON%\\python.exe -m coverage run manage.py test"
+  - "%PYTHON%\\python.exe -m coverage report"
 
 after_test:
   - "%PYTHON%\\python.exe setup.py -q sdist"
