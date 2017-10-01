@@ -1,0 +1,19 @@
+language: python
+sudo: false
+
+branches:
+  only:
+    - master
+    - next
+
+python:
+  - "pypy3"
+  - "nightly"
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install -q -r requirements.txt
+
+script:
+  - ./manage.py test

@@ -1,0 +1,37 @@
+# https://www.appveyor.com/docs/appveyor-yml/
+
+version: "build-{build}"
+
+branches:
+  only:
+    - master
+    - next
+
+image: "Visual Studio 2017"
+
+environment:
+  matrix:
+    - PYTHON: "C:\\Python35"
+    - PYTHON: "C:\\Python35-x64"
+    - PYTHON: "C:\\Python36"
+    - PYTHON: "C:\\Python36-x64"
+
+matrix:
+  fast_finish: true
+
+install:
+  - "%PYTHON%\\python.exe -m pip install -q -r requirements.txt"
+
+build: off
+
+before_test:
+  - "%PYTHON%\\python.exe --version"
+
+test_script:
+  - "%PYTHON%\\python.exe manage.py test"
+
+after_test:
+  - "%PYTHON%\\python.exe setup.py -q sdist"
+
+artifacts:
+  - path: dist\*
