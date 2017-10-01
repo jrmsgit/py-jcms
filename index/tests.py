@@ -2,6 +2,10 @@ from django.test import TestCase
 
 class TestIndex (TestCase):
 
+    def testApiIndex (t):
+        r = t.client.get ('/api/')
+        t.assertEqual (200, r.status_code)
+
     def testIndex (t):
         #~ print (sorted ([k for k in dir (t) if not k.startswith ('_')]))
         #~ print (type (t.client), t.client)
