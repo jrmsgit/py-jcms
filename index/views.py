@@ -1,4 +1,5 @@
-from django.http import HttpResponse
+from jcms.response import JcmsResponse
 
-def index (request):
-    return HttpResponse ('jcms index!')
+def index (req):
+    resp = JcmsResponse (req)
+    return resp.send ('jcms index!')
