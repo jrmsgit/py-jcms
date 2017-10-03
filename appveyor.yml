@@ -29,7 +29,7 @@ before_test:
   - "%PYTHON%\\python.exe --version"
 
 test_script:
-  - "%PYTHON%\\python.exe -m coverage run manage.py test"
+  - "%PYTHON%\\python.exe -m coverage run jcmstest.py test"
   - "%PYTHON%\\python.exe -m coverage report"
 
 after_test:

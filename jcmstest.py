@@ -22,7 +22,7 @@ def cmd ():
             )
         raise
 
-    args = [sys.argv[0], 'test', '--failfast']
+    args = [sys.argv[0], 'test', '--failfast', '--pattern', '*_t.py']
     args.extend (sys.argv[1:])
     execute_from_command_line (args)
 

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-class TestIndex (TestCase):
+class TestViews (TestCase):
 
     def testIndex (t):
         r = t.client.get ('/')

@@ -1,2 +1,2 @@
 #!/bin/sh
-exec ./jcmstest.py
+exec ./jcmstest.py $@

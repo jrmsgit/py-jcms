@@ -3,7 +3,7 @@ from unittest.mock import Mock
 
 from jcms.response import JcmsResponse
 
-class TestJcmsResponse (TestCase):
+class TestResponse (TestCase):
     req = None
     resp = None
 
