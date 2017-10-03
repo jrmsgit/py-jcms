@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 
-from setuptools import setup, find_packages
+import os
+from setuptools import setup
 import version
+
+os.environ.setdefault ("DJANGO_SETTINGS_MODULE", "jcms.settings")
 
 setup (
     name = version.APPNAME,
@@ -20,21 +23,16 @@ setup (
 
     install_requires = version.catfile ('requirements.txt').split (),
 
-    py_modules = [],
-    data_files = [
-        ('', ['LICENSE', 'README.rst']),
-    ],
+    py_modules = version.installModules (),
+    data_files = version.installFiles (),
 
     zip_safe = False,
 
-    packages = find_packages (),
-    include_package_data = True,
+    entry_points = {
+        'console_scripts': [
+            'jcms=jcmsmain:cmd',
+        ],
+    },
 
-    #~ entry_points = {
-        #~ 'console_scripts': [
-            #~ 'jcms=jcms:cmd',
-        #~ ],
-    #~ },
-
-    #~ test_suite = 'test.suite',
+    test_suite = 'jcmstest',
 )

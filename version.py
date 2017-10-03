@@ -40,3 +40,35 @@ def catfile (fpath):
         blob = fh.read ()
         fh.close ()
     return blob
+
+def installModules (tests = False):
+    l = []
+    p = glob ('*.py')
+    p.extend (glob ('*/*.py'))
+    p.extend (glob ('*/*/*.py'))
+    for n in p:
+        if not tests:
+            if n.endswith ('_t.py'):
+               continue
+            elif path.basename (n) == 'tests.py':
+               continue
+            elif n == 'jcmstest.py':
+                continue
+        if n == 'setup.py':
+            continue
+        elif n == 'setup-test.py':
+            continue
+        elif n == 'devcli.py':
+            continue
+        elif n == 'manage.py':
+            continue
+        n = n.replace ('.py', '').replace (path.sep, '.')
+        l.append (n)
+    return sorted (l)
+
+def installFiles ():
+    l = [
+        ('', ['LICENSE', 'README.rst']),
+        #~ ('templates/default', glob ('templates/default/*.*')),
+    ]
+    return l

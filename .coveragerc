@@ -2,3 +2,4 @@
 omit =
     */site-packages/*
     manage.py
+    jcmstest.py
