@@ -25,6 +25,6 @@ apipatterns = ([
 
 urlpatterns = [
     url (r'^$', views.index, name = 'index'),
-    url (r'^api/', include (apipatterns)),
+    url (r'^api/', include (apipatterns, namespace = 'api')),
     url(r'^_/', admin.site.urls),
 ]
