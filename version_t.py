@@ -1,6 +1,7 @@
 from os import write, close, unlink
 from unittest import TestCase
 from tempfile import mkstemp
+
 import version
 
 mods = [
@@ -18,14 +19,15 @@ mods = [
     'jcmsmain',
     'version',
 ]
-testmods = mods.copy ()
-testmods.extend ([
+testmods = [
     'jcindex.views_t',
     'jcms.response_t',
     'jcmstest',
     'version_t',
-])
-testmods = sorted (testmods)
+]
+allmods = mods.copy ()
+allmods.extend (testmods)
+allmods = sorted (allmods)
 
 class TestVersion (TestCase):
     _version = None
@@ -70,10 +72,26 @@ class TestVersion (TestCase):
         t.assertListEqual (mods, version.installModules ())
 
     def testInstallModulesTests (t):
-        t.assertListEqual (testmods,
+        t.assertListEqual (allmods,
                 version.installModules (tests = True))
 
     def testInstallFiles (t):
         t.assertListEqual ([
             ('', ['LICENSE', 'README.rst']),
         ], version.installFiles ())
+
+
+if __name__ == '__main__':
+    missingOK = []
+    missing = []
+    for m in mods:
+        if m.endswith ('.__init__'):
+            # ignore __init__.py files (they don't have code on them)
+            continue
+        n = m + '_t'
+        if n not in testmods and n not in missingOK:
+            missing.append (n)
+    if len (missing) > 0:
+        print ('missing test files:')
+        for n in sorted (missing):
+            print (' ', n)

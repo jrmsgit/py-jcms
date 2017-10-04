@@ -2,6 +2,7 @@
 
 import os
 import sys
+import version
 
 def cmd ():
     os.environ.setdefault ("DJANGO_SETTINGS_MODULE", "jcms.settings")
@@ -24,6 +25,8 @@ def cmd ():
 
     args = [sys.argv[0], 'test', '--failfast', '--pattern', '*_t.py']
     args.extend (sys.argv[1:])
+
+    print (version.string ())
     execute_from_command_line (args)
 
 if __name__ == "__main__":

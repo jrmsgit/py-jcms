@@ -50,13 +50,9 @@ def installModules (tests = False):
         if not tests:
             if n.endswith ('_t.py'):
                continue
-            elif path.basename (n) == 'tests.py':
-               continue
             elif n == 'jcmstest.py':
                 continue
         if n == 'setup.py':
-            continue
-        elif n == 'setup-test.py':
             continue
         elif n == 'devcli.py':
             continue
