@@ -29,8 +29,8 @@ before_test:
   - "%PYTHON%\\python.exe --version"
 
 test_script:
-  - "%PYTHON%\\python.exe -m coverage run jcmstest.py test"
-  - "%PYTHON%\\python.exe -m coverage report"
+  - "%PYTHON%\\python.exe -m coverage run jcmstest.py -v3 test"
+  - "%PYTHON%\\python.exe -m coverage report -i"
 
 after_test:
   - "%PYTHON%\\python.exe setup.py -q sdist"
