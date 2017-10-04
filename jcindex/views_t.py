@@ -8,7 +8,7 @@ class TestViews (TestCase):
         t.assertEqual ('text/html; charset=utf-8', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
-        t.assertListEqual ([], r.templates)
+        #~ t.assertListEqual ([], r.templates)
 
     def testApiIndex (t):
         r = t.client.get ('/api/')

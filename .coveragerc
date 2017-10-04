@@ -1,6 +1,7 @@
 [run]
 omit =
     */site-packages/*
+    */__init__.py
     *_t.py
     manage.py
     jcmstest.py

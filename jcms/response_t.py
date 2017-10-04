@@ -13,14 +13,20 @@ class TestResponse (TestCase):
         t.resp = JcmsResponse (t.req)
 
     def testSend (t):
-        r = t.resp.send ('test1')
+        r = t.resp.send ({'data': 'test1'}, tpl = 'jcms/test.html')
         t.assertEqual ('text/html; charset=utf-8', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
-        t.assertEqual ('test1', r.content.decode ())
+        t.assertEqual ('test1', r.content.decode ().strip ())
+
+    def testSendInvalidData (t):
+        with t.assertRaises (RuntimeError) as cm:
+            t.resp.send (tuple (), tpl = 'jcms/test.html')
+        t.assertEqual ("invalid send data type: <class 'tuple'>",
+                str (cm.exception))
 
     def testPlain (t):
-        r = t.resp.plain ('test1')
+        r = t.resp.send ('test1')
         t.assertEqual ('text/plain; charset=utf-8', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
