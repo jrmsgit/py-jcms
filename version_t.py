@@ -5,21 +5,28 @@ from tempfile import mkstemp
 import version
 
 mods = [
+    'jcauth.__init__',
+    'jcauth.apps',
+    'jcauth.urls',
+
     'jcindex.__init__',
     'jcindex.admin',
     'jcindex.apps',
     'jcindex.migrations.__init__',
     'jcindex.models',
     'jcindex.views',
+
     'jcms.__init__',
     'jcms.response',
     'jcms.settings',
     'jcms.urls',
     'jcms.wsgi',
+
     'jcmsmain',
     'version',
 ]
 testmods = [
+    'jcauth.views_t',
     'jcindex.views_t',
     'jcms.response_t',
     'jcmstest',
@@ -78,6 +85,23 @@ class TestVersion (TestCase):
     def testInstallFiles (t):
         t.assertListEqual ([
             ('', ['LICENSE', 'README.rst']),
+            ('jcauth/templates/registration', [
+                'jcauth/templates/registration/password_reset_complete.html',
+                'jcauth/templates/registration/password_reset_confirm.html',
+                'jcauth/templates/registration/password_reset_done.html',
+                'jcauth/templates/registration/password_change_done.html',
+                'jcauth/templates/registration/logged_out.html',
+                'jcauth/templates/registration/password_reset_form.html',
+                'jcauth/templates/registration/password_reset_email.html',
+                'jcauth/templates/registration/password_change_form.html',
+                'jcauth/templates/registration/password_reset_subject.txt',
+                'jcauth/templates/registration/login.html',
+            ]),
+            ('jcindex/templates/jcms', [
+                'jcindex/templates/jcms/test.html',
+                'jcindex/templates/jcms/index.html',
+                'jcindex/templates/jcms/base.html',
+            ]),
         ], version.installFiles ())
 
 

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # jcms
     'jcindex.apps.JcindexConfig',
+    'jcauth.apps.JcauthConfig',
 ]
 
 MIDDLEWARE = [
