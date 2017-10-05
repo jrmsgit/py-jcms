@@ -1,3 +1,5 @@
+# -*- encoding: utf-8 -*-
+
 """
 Django settings for jcms project.
 
@@ -115,6 +117,10 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+APPEND_SLASH = True
+
+ADMINS = [('Jeremías', 'jrmsdev@gmail.com')]
+
 DEFAULT_FROM_EMAIL = 'jcms@localhost'
 
-APPEND_SLASH = True
+SERVER_EMAIL = 'jcms@localhost'
