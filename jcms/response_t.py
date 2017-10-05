@@ -1,5 +1,5 @@
 from django.test import TestCase
-from unittest.mock import Mock
+from django.http import HttpRequest
 
 from jcms.response import JcmsResponse
 
@@ -8,16 +8,16 @@ class TestResponse (TestCase):
     resp = None
 
     def setUp (t):
-        t.req = Mock ()
+        t.req = HttpRequest ()
         t.req.path = '/'
         t.resp = JcmsResponse (t.req)
 
     def testSend (t):
-        r = t.resp.send ({'data': 'test1'}, tpl = 'jcms/test.html')
+        r = t.resp.send ({'data': 'testSend'}, tpl = 'jcms/test.html')
         t.assertEqual ('text/html; charset=utf-8', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
-        t.assertEqual ('test1', r.content.decode ().strip ())
+        t.assertContains (r, 'testSend', count = 1)
 
     def testSendInvalidData (t):
         with t.assertRaises (RuntimeError) as cm:
@@ -26,8 +26,8 @@ class TestResponse (TestCase):
                 str (cm.exception))
 
     def testPlain (t):
-        r = t.resp.send ('test1')
+        r = t.resp.send ('testPlain')
         t.assertEqual ('text/plain; charset=utf-8', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
-        t.assertEqual ('test1', r.content.decode ())
+        t.assertEqual ('testPlain', r.content.decode ())
