@@ -116,12 +116,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
-
 APPEND_SLASH = True
+STATIC_URL = '/static/'
 
 ADMINS = [('Jeremías', 'jrmsdev@gmail.com')]
 
 DEFAULT_FROM_EMAIL = 'jcms@localhost'
-
 SERVER_EMAIL = 'jcms@localhost'
+
+LOGIN_URL = '/auth/login/'
+LOGIN_REDIRECT_URL = '/user/'
+LOGOUT_REDIRECT_URL = '/auth/logout/'

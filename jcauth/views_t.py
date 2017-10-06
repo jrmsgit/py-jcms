@@ -4,6 +4,8 @@ from jcauth.urls import urlpatterns
 
 class TestViews (TestCase):
 
+    fixtures = ['users.json']
+
     def testURLPatterns (t):
         l = []
         for p in urlpatterns:
@@ -25,11 +27,14 @@ class TestViews (TestCase):
 
     def testLoginPOST (t):
         r = t.client.post ('/auth/login/', {
-            'username': 'lalala',
-            'password': 'lalalapw',
+            'username': 'superuser',
+            'password': 'uvtbAE7A',
         })
-        t.assertContains (r, 'Please try again.')
+        t.assertRedirects (r, '/user/', fetch_redirect_response = False)
 
     def testLoginPOSTError (t):
-        r = t.client.post ('/auth/login/', {'username': 'lalala', 'password': 'lalalapw'})
+        r = t.client.post ('/auth/login/', {
+            'username': 'invaliduser',
+            'password': 'invalidpw',
+        })
         t.assertContains (r, 'Please try again.')
