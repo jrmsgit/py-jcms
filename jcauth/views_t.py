@@ -38,3 +38,7 @@ class TestViews (TestCase):
             'password': 'invalidpw',
         })
         t.assertContains (r, 'Please try again.')
+
+    def testLogout (t):
+        r = t.client.get ('/auth/logout/')
+        t.assertRedirects (r, '/auth/thanks/', fetch_redirect_response = False)

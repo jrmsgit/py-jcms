@@ -126,4 +126,4 @@ SERVER_EMAIL = 'jcms@localhost'
 
 LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/user/'
-LOGOUT_REDIRECT_URL = '/auth/logout/'
+LOGOUT_REDIRECT_URL = '/auth/thanks/'
