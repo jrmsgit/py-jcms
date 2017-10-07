@@ -56,6 +56,8 @@ def installModules (tests = False):
             continue
         elif n == 'devcli.py':
             continue
+        elif n == 'devdb.py':
+            continue
         elif n == 'manage.py':
             continue
         n = n.replace ('.py', '').replace (path.sep, '.')
