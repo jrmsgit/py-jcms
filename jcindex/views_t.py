@@ -8,7 +8,8 @@ class TestViews (TestCase):
         t.assertEqual ('text/html; charset=utf-8', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
-        #~ t.assertListEqual ([], r.templates)
+        t.assertTemplateUsed (r, 'jcms/base.html')
+        t.assertTemplateUsed (r, 'jcms/index.html')
 
     def testApiIndex (t):
         r = t.client.get ('/api/')
@@ -16,4 +17,4 @@ class TestViews (TestCase):
         t.assertEqual ('application/json', r.get ('content-type'))
         t.assertEqual ('OK', r.reason_phrase)
         t.assertEqual ('utf-8', r.charset)
-        t.assertListEqual ([], r.templates)
+        t.assertTemplateNotUsed (r, 'jcms/index.html')
