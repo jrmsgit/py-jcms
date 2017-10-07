@@ -1,0 +1,3 @@
+* conversor de monedas
+
+* calculadora (javascript?)
