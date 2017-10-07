@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.contrib.auth.models import User
 
 from jcauth.urls import urlpatterns
 
@@ -64,6 +65,26 @@ class TestViews (TestCase):
         t.assertRedirects (r, '/auth/login/?next=/auth/password_change/',
                 fetch_redirect_response = False)
 
+    def testPasswordChangePOST (t):
+        u = User.objects.get (pk = 2)
+        pw ='pbkdf2_sha256$36000$4gsR8CxwjFqB$53Rms6clRV+SPwkGCVw2Dl3paIKoHF/em3p7r2JNoj4='
+        t.assertEqual (pw, u.password)
+        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        r = t.client.post ('/auth/password_change/', {
+            'old_password': 'uvtbAE7A',
+            'new_password1': 'uvtbAE7B',
+            'new_password2': 'uvtbAE7B',
+        })
+        t.assertRedirects (r, '/auth/password_change/done/', fetch_redirect_response = True)
+        u = User.objects.get (pk = 2)
+        pw2 = u.password
+        t.assertNotEqual (pw2, pw)
+
+    def testPasswordChangePOSTInvalid (t):
+        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        r = t.client.post ('/auth/password_change/', {})
+        t.assertContains (r, 'Please correct the errors below.')
+
     def testPasswordChangeDone (t):
         t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
         r = t.client.get ('/auth/password_change/done/')
@@ -84,7 +105,6 @@ class TestViews (TestCase):
         t.assertTemplateUsed (r, 'jcms/password_reset_done.html')
 
     def testPasswordResetConfirm (t):
-        from django.contrib.auth.models import User
         from django.contrib.auth.tokens import default_token_generator
         from django.utils.http import urlsafe_base64_encode
         from django.utils.encoding import force_bytes
