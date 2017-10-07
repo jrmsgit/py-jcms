@@ -26,9 +26,13 @@ mods = [
     'version',
 ]
 testmods = [
+    'jcauth.urls_t',
     'jcauth.views_t',
+
     'jcindex.views_t',
+
     'jcms.response_t',
+
     'jcmstest',
     'version_t',
 ]

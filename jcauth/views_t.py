@@ -1,27 +1,16 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-
-from jcauth.urls import urlpatterns
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.http import urlsafe_base64_encode
+from django.utils.encoding import force_bytes
+from django.core import mail
 
 class TestViews (TestCase):
 
     fixtures = ['users.json']
 
-    def testURLPatterns (t):
-        l = []
-        for p in urlpatterns:
-            l.append (p.describe ())
-        t.assertListEqual ([
-            "'^login/$' [name='login']",
-            "'^logout/$' [name='logout']",
-            "'^password_change/$' [name='password_change']",
-            "'^password_change/done/$' [name='password_change_done']",
-            "'^password_reset/$' [name='password_reset']",
-            "'^password_reset/done/$' [name='password_reset_done']",
-            "'^reset/(?P<uidb64>[0-9A-Za-z_\\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$' [name='password_reset_confirm']",
-            "'^reset/done/$' [name='password_reset_complete']",
-
-        ], sorted (l))
+    def clientLogin (t, un = 'user1', pw = 'uvtbAE7A'):
+        t.assertTrue (t.client.login (username = un, password = pw))
 
     def testLogin (t):
         r = t.client.get ('/auth/login/')
@@ -44,17 +33,17 @@ class TestViews (TestCase):
         t.assertContains (r, 'Please try again.')
 
     def testLogout (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.get ('/auth/logout/')
         t.assertRedirects (r, '/auth/login/', fetch_redirect_response = False)
 
     def testLogoutFollowRedirect (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.post ('/auth/logout/', {})
         t.assertRedirects (r, '/auth/login/', fetch_redirect_response = True)
 
     def testPasswordChange (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.get ('/auth/password_change/')
         t.assertContains (r, 'Please enter your old password')
         t.assertTemplateUsed (r, 'jcms/base.html')
@@ -81,12 +70,12 @@ class TestViews (TestCase):
         t.assertNotEqual (pw2, pw)
 
     def testPasswordChangePOSTInvalid (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.post ('/auth/password_change/', {})
         t.assertContains (r, 'Please correct the errors below.')
 
     def testPasswordChangeDone (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.get ('/auth/password_change/done/')
         t.assertContains (r, 'Your password was changed.')
         t.assertTemplateUsed (r, 'jcms/base.html')
@@ -99,15 +88,16 @@ class TestViews (TestCase):
         t.assertTemplateUsed (r, 'jcms/password_reset_form.html')
 
     def testPasswordResetPOST (t):
-        from django.core import mail
         t.assertListEqual ([], mail.outbox)
         r = t.client.post ('/auth/password_reset/', {
             'email': 'user1@jcms.local',
         })
-        t.assertRedirects (r, '/auth/password_reset/done/', fetch_redirect_response = False)
+        t.assertRedirects (r, '/auth/password_reset/done/',
+            fetch_redirect_response = False)
         m = mail.outbox[0]
         t.assertListEqual (['user1@jcms.local'], m.to)
         t.assertEqual ('jcms@localhost', m.from_email)
+        t.assertEqual ('Password reset on testserver', m.subject)
         t.assertIsInstance (m.body, str)
         t.assertEqual (29, m.body.find ('because you requested a password reset'))
         t.assertEqual (166, m.body.find ('http://testserver/auth/reset/Mg/4q3-75a577779083846c4512/'))
@@ -126,9 +116,6 @@ class TestViews (TestCase):
         t.assertTemplateUsed (r, 'jcms/password_reset_done.html')
 
     def testPasswordResetConfirm (t):
-        from django.contrib.auth.tokens import default_token_generator
-        from django.utils.http import urlsafe_base64_encode
-        from django.utils.encoding import force_bytes
         u = User.objects.get (pk = 2)
         t.assertEqual (2, u.id)
         token = default_token_generator.make_token (u)
@@ -138,14 +125,14 @@ class TestViews (TestCase):
         t.assertRedirects (r, '/auth/reset/{}/set-password/'.format (uid), fetch_redirect_response = False)
 
     def testPasswordResetConfirmInvalidLink (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.get ('/auth/reset/b64/tok-en/')
         t.assertContains (r, 'The password reset link was invalid')
         t.assertTemplateUsed (r, 'jcms/base.html')
         t.assertTemplateUsed (r, 'jcms/password_reset_confirm.html')
 
     def testPasswordResetComplete (t):
-        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        t.clientLogin ()
         r = t.client.get ('/auth/reset/done/')
         t.assertContains (r, 'Your password has been set.')
         t.assertTemplateUsed (r, 'jcms/base.html')

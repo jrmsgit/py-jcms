@@ -25,7 +25,6 @@ SECRET_KEY = '(!-=cx(@s6l@61o1o%7(@7$aj+9js=zgx8b_av3m2z%pnjnoja'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = []
 
 # Application definition
@@ -120,6 +119,13 @@ APPEND_SLASH = True
 STATIC_URL = '/static/'
 
 ADMINS = [('Jeremías', 'jrmsdev@gmail.com')]
+
+#~ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+#~ EMAIL_FILE_PATH = os.path.join (BASE_DIR, 'mbox')
+
+#~ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+#~ EMAIL_HOST = 'localhost'
+#~ EMAIL_PORT = 8025
 
 DEFAULT_FROM_EMAIL = 'jcms@localhost'
 SERVER_EMAIL = 'jcms@localhost'
