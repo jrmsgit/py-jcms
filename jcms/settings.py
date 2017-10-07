@@ -120,8 +120,8 @@ STATIC_URL = '/static/'
 
 ADMINS = [('Jeremías', 'jrmsdev@gmail.com')]
 
-#~ EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-#~ EMAIL_FILE_PATH = os.path.join (BASE_DIR, 'mbox')
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = os.path.join (os.path.sep, 'var', 'opt', 'jcms', 'mbox'),
 
 #~ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #~ EMAIL_HOST = 'localhost'

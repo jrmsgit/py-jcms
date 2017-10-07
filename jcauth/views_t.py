@@ -131,6 +131,40 @@ class TestViews (TestCase):
         t.assertTemplateUsed (r, 'jcms/base.html')
         t.assertTemplateUsed (r, 'jcms/password_reset_confirm.html')
 
+    def testPasswordResetConfirmPOST (t):
+        u = User.objects.get (pk = 2)
+        t.assertEqual (2, u.id)
+        token = default_token_generator.make_token (u)
+        uid = urlsafe_base64_encode (force_bytes (u.pk)).decode ()
+        t.assertTrue (default_token_generator.check_token (u, token))
+        r = t.client.get ('/auth/reset/{}/{}/'.format (uid, token))
+        t.assertRedirects (r, '/auth/reset/{}/set-password/'.format (uid), fetch_redirect_response = False)
+        r2 = t.client.post ('/auth/reset/{}/set-password/'.format (uid), {
+            'new_password1': 'uvtbAE7B',
+            'new_password2': 'uvtbAE7B',
+        })
+        t.assertRedirects (r2, '/auth/reset/done/'.format (uid), fetch_redirect_response = False)
+
+    def testPasswordResetConfirmPOSTEmpty (t):
+        u = User.objects.get (pk = 2)
+        t.assertEqual (2, u.id)
+        token = default_token_generator.make_token (u)
+        uid = urlsafe_base64_encode (force_bytes (u.pk)).decode ()
+        t.assertTrue (default_token_generator.check_token (u, token))
+        r = t.client.get ('/auth/reset/{}/{}/'.format (uid, token))
+        t.assertRedirects (r, '/auth/reset/{}/set-password/'.format (uid), fetch_redirect_response = False)
+        r2 = t.client.post ('/auth/reset/{}/set-password/'.format (uid), {})
+        t.assertContains (r2, 'This field is required.', count = 2)
+        t.assertTemplateUsed (r2, 'jcms/password_reset_confirm.html')
+
+    def testPasswordResetConfirmPOSTInvalidLink (t):
+        u = User.objects.get (pk = 2)
+        t.assertEqual (2, u.id)
+        uid = urlsafe_base64_encode (force_bytes (u.pk)).decode ()
+        r = t.client.post ('/auth/reset/{}/set-password/'.format (uid), {})
+        t.assertContains (r, 'password reset link was invalid,')
+        t.assertTemplateUsed (r, 'jcms/password_reset_confirm.html')
+
     def testPasswordResetComplete (t):
         t.clientLogin ()
         r = t.client.get ('/auth/reset/done/')
