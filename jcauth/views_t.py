@@ -45,7 +45,12 @@ class TestViews (TestCase):
     def testLogout (t):
         t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
         r = t.client.get ('/auth/logout/')
-        t.assertRedirects (r, '/auth/thanks/', fetch_redirect_response = False)
+        t.assertRedirects (r, '/auth/login/', fetch_redirect_response = False)
+
+    def testLogoutFollowRedirect (t):
+        t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))
+        r = t.client.post ('/auth/logout/', {})
+        t.assertRedirects (r, '/auth/login/', fetch_redirect_response = True)
 
     def testPasswordChange (t):
         t.assertTrue (t.client.login (username = 'user1', password = 'uvtbAE7A'))

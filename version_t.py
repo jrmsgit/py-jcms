@@ -91,7 +91,6 @@ class TestVersion (TestCase):
                 'jcauth/templates/jcms/password_reset_confirm.html',
                 'jcauth/templates/jcms/password_reset_done.html',
                 'jcauth/templates/jcms/password_change_done.html',
-                'jcauth/templates/jcms/logged_out.html',
                 'jcauth/templates/jcms/password_reset_form.html',
                 'jcauth/templates/jcms/password_reset_email.txt',
                 'jcauth/templates/jcms/password_change_form.html',
