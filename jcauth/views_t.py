@@ -98,6 +98,27 @@ class TestViews (TestCase):
         t.assertTemplateUsed (r, 'jcms/base.html')
         t.assertTemplateUsed (r, 'jcms/password_reset_form.html')
 
+    def testPasswordResetPOST (t):
+        from django.core import mail
+        t.assertListEqual ([], mail.outbox)
+        r = t.client.post ('/auth/password_reset/', {
+            'email': 'user1@jcms.local',
+        })
+        t.assertRedirects (r, '/auth/password_reset/done/', fetch_redirect_response = False)
+        m = mail.outbox[0]
+        t.assertListEqual (['user1@jcms.local'], m.to)
+        t.assertEqual ('jcms@localhost', m.from_email)
+        t.assertIsInstance (m.body, str)
+        t.assertEqual (29, m.body.find ('because you requested a password reset'))
+        t.assertEqual (166, m.body.find ('http://testserver/auth/reset/Mg/4q3-75a577779083846c4512/'))
+        t.assertEqual (255, m.body.find ('forgotten: user1'))
+
+    def testPasswordResetPOSTEmptyEmail (t):
+        r = t.client.post ('/auth/password_reset/', {'email': ''})
+        t.assertContains (r, 'This field is required.')
+        t.assertTemplateUsed (r, 'jcms/base.html')
+        t.assertTemplateUsed (r, 'jcms/password_reset_form.html')
+
     def testPasswordResetDone (t):
         r = t.client.get ('/auth/password_reset/done/')
         t.assertContains (r, "We've emailed you instructions")
