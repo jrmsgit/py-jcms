@@ -67,8 +67,8 @@ def installModules (tests = False):
 def installFiles ():
     tpldirs = sorted ([d for d in glob ('*/templates/*') if not d.endswith ('jcmstest')])
     l = [
-        ('', ['LICENSE', 'README.rst']),
+        ('', sorted (['LICENSE', 'README.rst'])),
     ]
     for d in tpldirs:
-        l.append ((d, glob ('{}/*.*'.format (d))))
+        l.append ((d, sorted (glob ('{}/*.*'.format (d)))))
     return l

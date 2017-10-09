@@ -100,7 +100,7 @@ class TestViews (TestCase):
         t.assertEqual ('Password reset on testserver', m.subject)
         t.assertIsInstance (m.body, str)
         t.assertEqual (29, m.body.find ('because you requested a password reset'))
-        t.assertEqual (166, m.body.find ('http://testserver/auth/reset/Mg/4q3-75a577779083846c4512/'))
+        t.assertEqual (166, m.body.find ('http://testserver/auth/reset/'))
         t.assertEqual (255, m.body.find ('forgotten: user1'))
 
     def testPasswordResetPOSTEmptyEmail (t):

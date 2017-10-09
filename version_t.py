@@ -91,20 +91,20 @@ class TestVersion (TestCase):
         t.assertListEqual ([
             ('', ['LICENSE', 'README.rst']),
             ('jcauth/templates/jcms', [
+                'jcauth/templates/jcms/login.html',
+                'jcauth/templates/jcms/password_change_done.html',
+                'jcauth/templates/jcms/password_change_form.html',
                 'jcauth/templates/jcms/password_reset_complete.html',
                 'jcauth/templates/jcms/password_reset_confirm.html',
                 'jcauth/templates/jcms/password_reset_done.html',
-                'jcauth/templates/jcms/password_change_done.html',
-                'jcauth/templates/jcms/password_reset_form.html',
                 'jcauth/templates/jcms/password_reset_email.txt',
-                'jcauth/templates/jcms/password_change_form.html',
+                'jcauth/templates/jcms/password_reset_form.html',
                 'jcauth/templates/jcms/password_reset_subject.txt',
-                'jcauth/templates/jcms/login.html',
             ]),
             ('jcindex/templates/jcms', [
-                'jcindex/templates/jcms/test.html',
-                'jcindex/templates/jcms/index.html',
                 'jcindex/templates/jcms/base.html',
+                'jcindex/templates/jcms/index.html',
+                'jcindex/templates/jcms/test.html',
             ]),
         ], version.installFiles ())
 
