@@ -1,4 +1,4 @@
-from os import write, close, unlink
+from os import write, close, unlink, path
 from unittest import TestCase
 from tempfile import mkstemp
 
@@ -88,25 +88,32 @@ class TestVersion (TestCase):
 
     def testInstallFiles (t):
         t.maxDiff = None
-        t.assertListEqual ([
-            ('', ['LICENSE', 'README.rst']),
-            ('jcauth/templates/jcms', [
-                'jcauth/templates/jcms/login.html',
-                'jcauth/templates/jcms/password_change_done.html',
-                'jcauth/templates/jcms/password_change_form.html',
-                'jcauth/templates/jcms/password_reset_complete.html',
-                'jcauth/templates/jcms/password_reset_confirm.html',
-                'jcauth/templates/jcms/password_reset_done.html',
-                'jcauth/templates/jcms/password_reset_email.txt',
-                'jcauth/templates/jcms/password_reset_form.html',
-                'jcauth/templates/jcms/password_reset_subject.txt',
-            ]),
-            ('jcindex/templates/jcms', [
-                'jcindex/templates/jcms/base.html',
-                'jcindex/templates/jcms/index.html',
-                'jcindex/templates/jcms/test.html',
-            ]),
-        ], version.installFiles ())
+        d = {
+            '': ['LICENSE', 'README.rst'],
+            path.join ('jcauth', 'templates', 'jcms'): [
+                'login.html',
+                'password_change_done.html',
+                'password_change_form.html',
+                'password_reset_complete.html',
+                'password_reset_confirm.html',
+                'password_reset_done.html',
+                'password_reset_email.txt',
+                'password_reset_form.html',
+                'password_reset_subject.txt',
+            ],
+            path.join ('jcindex', 'templates', 'jcms'): [
+                'base.html',
+                'index.html',
+                'test.html',
+            ],
+        }
+        l = []
+        for dn in sorted (d.keys ()):
+            l2 = []
+            for fn in d.get (dn):
+                l2.append (path.join (dn, fn))
+            l.append ((dn, l2))
+        t.assertListEqual (l, version.installFiles ())
 
 
 if __name__ == '__main__':
