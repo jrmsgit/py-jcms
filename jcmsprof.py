@@ -3,7 +3,7 @@
 import io
 from os import path
 
-SRCDIR = path.dirname (path.abspath (__file__))
+SRCDIR = path.dirname (path.abspath (__file__)) + path.sep
 STATENTRYNO = 6
 ENTRY_FMT = '{0:>6} {1:>7} {2:>7} {3:>7} {4:>7} {5:<}'
 
@@ -14,7 +14,7 @@ class StatEntry (object):
     def __init__ (self, items):
         self.items = items
         fn = self.items[STATENTRYNO - 1]
-        self.items[STATENTRYNO - 1] = fn.replace (SRCDIR+'/', '', 1)
+        self.items[STATENTRYNO - 1] = fn.replace (SRCDIR, '', 1)
 
     def __str__ (self):
         return ENTRY_FMT.format (*[i.strip () for i in self.items])
@@ -29,7 +29,7 @@ class ProfStats (object):
         stats = pstats.Stats (filename)
         stats.sort_stats ('ncalls', 'cumtime')
         stats.stream = io.StringIO ()
-        stats.print_stats (r'.*jcms/.*')
+        stats.print_stats (".*jcms{}.*".format (path.sep))
         stats.stream.seek (0, 0)
         eno = 0
         readheader = True
@@ -45,7 +45,7 @@ class ProfStats (object):
                         self.headers.append (i)
                 else:
                     # read entry
-                    fn = i[-1].replace (SRCDIR+'/', '', 1).split (':')[0]
+                    fn = i[-1].replace (SRCDIR, '', 1).split (':')[0]
                     if fn != 'jcmstest.py' and not fn.endswith ('_t.py'):
                         self.entries[eno] = StatEntry (i)
                         eno += 1
