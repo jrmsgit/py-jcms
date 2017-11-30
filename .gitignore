@@ -2,6 +2,7 @@
 db.sqlite3
 dist/
 jcms.egg-info/
+jcmstest.profile
 __pycache__
 .coverage
 htmlcov/

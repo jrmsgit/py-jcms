@@ -5,3 +5,4 @@ omit =
     *_t.py
     manage.py
     jcmstest.py
+    jcmsprof.py

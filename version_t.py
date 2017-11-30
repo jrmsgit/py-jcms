@@ -34,6 +34,7 @@ testmods = [
     'jcms.response_t',
 
     'jcmstest',
+    'jcmsprof',
     'version_t',
 ]
 allmods = mods.copy ()
