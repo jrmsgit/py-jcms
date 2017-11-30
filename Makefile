@@ -10,7 +10,7 @@ clean:
 	@rm -f jcmstest.profile .coverage
 
 .PHONY: distclean
-distclean:
+distclean: clean
 	@rm -rf dist jcms.egg-info build
 	@find . -type d -name __pycache__ | xargs rm -rf
 	@rm -f db.sqlite3
@@ -31,3 +31,14 @@ test:
 .PHONY: profile
 profile:
 	@$(PYTHON) jcmsprof.py
+
+.PHONY: lang-extract
+lang-extract:
+	@$(PYTHON) manage.py makemessages --settings=jcms.settings
+
+.PHONY: lang-compile
+lang-compile:
+	@$(PYTHON) manage.py compilemessages --settings=jcms.settings
+
+.PHONY: lang
+lang: lang-extract lang-compile
