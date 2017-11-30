@@ -44,7 +44,7 @@ class ProfStats (object):
                         self.headers.append (i)
                 else:
                     # read entry
-                    fn = i[-1].replace (SRCDIR, '', 1).split (':')[0]
+                    fn = i[-1].replace (SRCDIR+'/', '', 1).split (':')[0]
                     if fn != 'jcmstest.py' and not fn.endswith ('_t.py'):
                         self.entries[eno] = StatEntry (i)
                         eno += 1
