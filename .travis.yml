@@ -8,12 +8,12 @@ branches:
 
 matrix:
   fast_finish: true
-
-python:
-  - "pypy3"
-  - "nightly"
-  - "3.5"
-  - "3.6"
+  include:
+    - python: "pypy3"
+      env: JCMSPROFILE=yes
+    - python: "nightly"
+    - python: "3.5"
+    - python: "3.6"
 
 install:
   - pip install -q -r requirements.txt
@@ -22,3 +22,4 @@ install:
 script:
   - python3 -m version_t
   - make coverage
+  - test 'Xyes' = "X$JCMSPROFILE" && make profile

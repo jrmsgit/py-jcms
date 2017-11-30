@@ -13,6 +13,7 @@ image: "Visual Studio 2017"
 environment:
   matrix:
     - PYTHON: "C:\\Python35"
+      JCMSPROFILE: "yes"
     - PYTHON: "C:\\Python35-x64"
     - PYTHON: "C:\\Python36"
     - PYTHON: "C:\\Python36-x64"
@@ -32,6 +33,7 @@ before_test:
 test_script:
   - "%PYTHON%\\python.exe -m coverage run jcmstest.py"
   - "%PYTHON%\\python.exe -m coverage report"
+  - "IF Xyes==X%JCMSPROFILE% %PYTHON%\\python.exe jcmsprof.py"
 
 after_test:
   - "%PYTHON%\\python.exe setup.py -q sdist --formats=zip"
