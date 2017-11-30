@@ -5,7 +5,8 @@ from os import path
 
 SRCDIR = path.dirname (path.abspath (__file__))
 STATENTRYNO = 6
-ENTRY_FMT = '{0:>6} {1:>8} {2:>7} {3:>8} {4:>7} {5}'
+ENTRY_FMT = '{0:>6} {1:>7} {2:>7} {3:>7} {4:>7} {5:<}'
+
 
 class StatEntry (object):
     items = None
@@ -16,7 +17,7 @@ class StatEntry (object):
         self.items[STATENTRYNO - 1] = fn.replace (SRCDIR+'/', '', 1)
 
     def __str__ (self):
-        return ENTRY_FMT.format (*self.items)
+        return ENTRY_FMT.format (*[i.strip () for i in self.items])
 
 
 class ProfStats (object):
@@ -57,7 +58,7 @@ class ProfStats (object):
     def _fmtEntryHeader (self, s):
         s.write ('\n')
         # ~ s.write (' '.join (self.eheader))
-        s.write (ENTRY_FMT.format (*self.eheader))
+        s.write (ENTRY_FMT.format (*[i.strip () for i in self.eheader]))
         s.write ('\n')
 
     def _fmtEntries (self, s):
