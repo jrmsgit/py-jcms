@@ -3,9 +3,9 @@
 import io
 from os import path
 
-STATENTRYNO = 6
 SRCDIR = path.dirname (path.abspath (__file__))
-
+STATENTRYNO = 6
+ENTRY_FMT = '{0:>6} {1:>8} {2:>7} {3:>8} {4:>7} {5}'
 
 class StatEntry (object):
     items = None
@@ -16,7 +16,7 @@ class StatEntry (object):
         self.items[STATENTRYNO - 1] = fn.replace (SRCDIR+'/', '', 1)
 
     def __str__ (self):
-        return ' '.join (self.items)
+        return ENTRY_FMT.format (*self.items)
 
 
 class ProfStats (object):
@@ -49,19 +49,29 @@ class ProfStats (object):
                         self.entries[eno] = StatEntry (i)
                         eno += 1
 
-    def __str__ (self):
-        s = io.StringIO ()
+    def _fmtHeaders (self, s):
+        for h in self.headers:
+            s.write (' '.join (h))
+            s.write ('\n')
+
+    def _fmtEntryHeader (self, s):
         s.write ('\n')
-        s.write (' '.join (self.eheader))
+        # ~ s.write (' '.join (self.eheader))
+        s.write (ENTRY_FMT.format (*self.eheader))
         s.write ('\n')
+
+    def _fmtEntries (self, s):
         for eno in sorted (self.entries.keys ()):
             e = self.entries[eno]
             s.write (str (e))
             s.write ('\n')
         s.write ('\n')
-        for h in self.headers:
-            s.write (' '.join (h))
-            s.write ('\n')
+
+    def __str__ (self):
+        s = io.StringIO ()
+        self._fmtEntryHeader (s)
+        self._fmtEntries (s)
+        self._fmtHeaders (s)
         s.seek (0, 0)
         return s.read ()
 
