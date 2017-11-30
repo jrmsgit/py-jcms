@@ -1,8 +1,7 @@
 PYTHON ?= python3
 
 .PHONY: default
-default:
-	@echo 'nothing to do...'
+default: build
 
 .PHONY: clean
 clean:
@@ -42,3 +41,16 @@ lang-compile:
 
 .PHONY: lang
 lang: lang-extract lang-compile
+
+.PHONY: build
+build:
+	@$(PYTHON) setup.py build
+
+.PHONY: dist
+dist:
+	@$(PYTHON) setup.py bdist_egg
+	@$(PYTHON) setup.py bdist_wheel
+
+.PHONY: install
+install:
+	@$(PYTHON) setup.py install
