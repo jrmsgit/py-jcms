@@ -1,4 +1,5 @@
 PYTHON ?= python3
+PIP ?= pip3
 
 .PHONY: default
 default: build
@@ -47,10 +48,14 @@ build:
 	@$(PYTHON) setup.py build
 
 .PHONY: dist
-dist:
-	@$(PYTHON) setup.py bdist_egg
-	@$(PYTHON) setup.py bdist_wheel
+dist: build
+	@$(PYTHON) setup.py bdist_egg --skip-build
+	@$(PYTHON) setup.py bdist_wheel --skip-build
 
 .PHONY: install
-install:
-	@$(PYTHON) setup.py install
+install: dist
+	@$(PYTHON) setup.py install --force --skip-build
+
+.PHONY: uninstall
+uninstall:
+	@$(PIP) uninstall -y jcms
