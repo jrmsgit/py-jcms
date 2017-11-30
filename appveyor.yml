@@ -1,7 +1,7 @@
 # https://www.appveyor.com/docs/appveyor-yml/
 # https://ci.appveyor.com/project/jrmsgit/jcms
 
-version: "build-{build}"
+version: "build{build}"
 
 branches:
   only:

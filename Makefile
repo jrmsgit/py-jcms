@@ -6,17 +6,17 @@ default: build
 
 .PHONY: clean
 clean:
-	@rm -rf htmlcov
+	@rm -rf htmlcov build
 	@rm -f jcmstest.profile .coverage
 
 .PHONY: distclean
 distclean: clean
-	@rm -rf dist jcms.egg-info build
+	@rm -rf dist jcms.egg-info
 	@find . -type d -name __pycache__ | xargs rm -rf
 	@rm -f db.sqlite3
 
 .PHONY: coverage
-coverage:
+coverage: clean
 	@$(PYTHON) -m coverage run jcmstest.py
 	@$(PYTHON) -m coverage report
 
@@ -24,12 +24,8 @@ coverage:
 htmlcov: coverage
 	@$(PYTHON) -m coverage html
 
-.PHONY: test
-test:
-	@$(PYTHON) jcmstest.py
-
 .PHONY: profile
-profile:
+profile: clean
 	@$(PYTHON) jcmsprof.py
 
 .PHONY: lang-extract
@@ -50,6 +46,10 @@ build:
 .PHONY: dist
 dist: build
 	@$(PYTHON) setup.py sdist --formats=xztar
+
+.PHONY: test
+test: clean
+	@$(PYTHON) jcmstest.py
 
 .PHONY: install
 install: build
