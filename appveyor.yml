@@ -1,4 +1,5 @@
 # https://www.appveyor.com/docs/appveyor-yml/
+# https://ci.appveyor.com/project/jrmsgit/jcms
 
 version: "build-{build}"
 
@@ -29,11 +30,11 @@ before_test:
   - "%PYTHON%\\python.exe --version"
 
 test_script:
-  - "%PYTHON%\\python.exe -m coverage run jcmstest.py -v3"
+  - "%PYTHON%\\python.exe -m coverage run jcmstest.py"
   - "%PYTHON%\\python.exe -m coverage report"
 
 after_test:
-  - "%PYTHON%\\python.exe setup.py -q sdist"
+  - "%PYTHON%\\python.exe setup.py -q sdist --formats=zip"
 
 artifacts:
   - path: dist\*

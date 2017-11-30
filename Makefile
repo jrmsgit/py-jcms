@@ -49,8 +49,7 @@ build:
 
 .PHONY: dist
 dist: build
-	@$(PYTHON) setup.py bdist_egg --skip-build
-	@$(PYTHON) setup.py bdist_wheel --skip-build
+	@$(PYTHON) setup.py sdist --formats=xztar
 
 .PHONY: install
 install: dist
