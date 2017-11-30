@@ -52,7 +52,7 @@ dist: build
 	@$(PYTHON) setup.py sdist --formats=xztar
 
 .PHONY: install
-install: dist
+install: build
 	@$(PYTHON) setup.py install --force --skip-build
 
 .PHONY: uninstall
