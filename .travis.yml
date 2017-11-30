@@ -21,4 +21,4 @@ install:
 
 script:
   - python3 -m version_t
-  - ./coverage.sh
+  - make coverage
