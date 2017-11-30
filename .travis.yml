@@ -12,6 +12,7 @@ matrix:
     - python: "pypy3"
       env: JCMSPROFILE=yes
     - python: "nightly"
+      env: JCMSPROFILE=yes
     - python: "3.5"
     - python: "3.6"
 

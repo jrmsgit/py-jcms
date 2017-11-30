@@ -17,6 +17,7 @@ environment:
     - PYTHON: "C:\\Python35-x64"
     - PYTHON: "C:\\Python36"
     - PYTHON: "C:\\Python36-x64"
+      JCMSPROFILE: "yes"
 
 matrix:
   fast_finish: true
