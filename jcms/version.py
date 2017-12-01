@@ -41,7 +41,7 @@ def catfile (fpath):
         fh.close ()
     return blob
 
-def installModules (tests = 0):
+def installModules (tests = False):
     l = []
     p = glob ('*.py')
     p.extend (glob ('*/*.py'))

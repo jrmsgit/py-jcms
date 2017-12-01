@@ -22,9 +22,11 @@ install:
   - pip install -q -r requirements-test.txt
 
 script:
+  - make buildext
+  - make build
   - python3 -m jcms.version_t
   - make coverage
   - if test 'Xyes' = "X$JCMSPROFILE"; then make profile; fi
 
 after_success:
-  - make dist
+  - make clean dist
