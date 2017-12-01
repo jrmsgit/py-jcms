@@ -2,6 +2,7 @@
 
 import os
 from setuptools import setup
+from Cython.Build import cythonize
 import version
 
 os.environ.setdefault ("DJANGO_SETTINGS_MODULE", "jcms.settings")
@@ -23,6 +24,7 @@ setup (
 
     install_requires = version.catfile ('requirements.txt').split (),
 
+    ext_modules = cythonize ('version.py'),
     py_modules = version.installModules (),
     data_files = version.installFiles (),
 

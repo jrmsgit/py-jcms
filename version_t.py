@@ -90,7 +90,7 @@ class TestVersion (TestCase):
     def testInstallFiles (t):
         t.maxDiff = None
         d = {
-            '': ['LICENSE', 'README.rst'],
+            '': ['LICENSE', 'README.rst', 'version.pxd'],
             path.join ('jcauth', 'templates', 'jcms'): [
                 'login.html',
                 'password_change_done.html',

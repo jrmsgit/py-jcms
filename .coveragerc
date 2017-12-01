@@ -1,4 +1,5 @@
 [run]
+plugins = Cython.Coverage
 omit =
     */site-packages/*
     */__init__.py

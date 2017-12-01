@@ -8,6 +8,7 @@ default: build
 clean:
 	@rm -rf htmlcov build
 	@rm -f jcmstest.profile .coverage
+	@rm -f *.c *.html *.so
 
 .PHONY: distclean
 distclean: clean
@@ -16,7 +17,7 @@ distclean: clean
 	@rm -f db.sqlite3
 
 .PHONY: coverage
-coverage: clean
+coverage:
 	@$(PYTHON) -m coverage run jcmstest.py
 	@$(PYTHON) -m coverage report
 
@@ -25,7 +26,7 @@ htmlcov: coverage
 	@$(PYTHON) -m coverage html
 
 .PHONY: profile
-profile: clean
+profile:
 	@$(PYTHON) jcmsprof.py
 
 .PHONY: lang-extract
@@ -44,16 +45,17 @@ build:
 	@$(PYTHON) setup.py build
 
 .PHONY: dist
-dist: build
-	@$(PYTHON) setup.py sdist --formats=xztar
+dist:
+	@$(PYTHON) setup.py sdist
+	@$(PYTHON) setup.py bdist_egg --exclude-source-files
 
 .PHONY: test
-test: clean
+test:
 	@$(PYTHON) jcmstest.py
 
 .PHONY: install
-install: build
-	@$(PYTHON) setup.py install --force --skip-build
+install:
+	@$(PYTHON) setup.py install --force
 
 .PHONY: uninstall
 uninstall:

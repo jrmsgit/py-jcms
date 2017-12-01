@@ -1,4 +1,4 @@
-# -*- encoding: utf-8 -*-
+# encoding: utf-8
 
 from os import path
 from glob import glob
@@ -41,7 +41,7 @@ def catfile (fpath):
         fh.close ()
     return blob
 
-def installModules (tests = False):
+def installModules (tests = 0):
     l = []
     p = glob ('*.py')
     p.extend (glob ('*/*.py'))
@@ -69,7 +69,7 @@ def installModules (tests = False):
 def installFiles ():
     tpldirs = sorted ([d for d in glob ('*/templates/*') if not d.endswith ('jcmstest')])
     l = [
-        ('', sorted (['LICENSE', 'README.rst'])),
+        ('', sorted (['LICENSE', 'README.rst', 'version.pxd'])),
     ]
     for d in tpldirs:
         l.append ((d, sorted (glob ('{}/*.*'.format (d)))))
