@@ -2,7 +2,7 @@
 
 import os
 import sys
-import version
+from jcms import version
 
 def cmd ():
     os.environ.setdefault ("DJANGO_SETTINGS_MODULE", "jcms.settings")

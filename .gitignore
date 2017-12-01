@@ -1,4 +1,5 @@
 *.swp
+*.c
 db.sqlite3
 dist/
 jcms.egg-info/

@@ -46,8 +46,7 @@ build:
 
 .PHONY: dist
 dist:
-	@$(PYTHON) setup.py sdist
-	@$(PYTHON) setup.py bdist_egg --exclude-source-files
+	@$(PYTHON) setup.py bdist_wheel
 
 .PHONY: test
 test:

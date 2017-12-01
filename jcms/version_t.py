@@ -2,7 +2,7 @@ from os import write, close, unlink, path
 from unittest import TestCase
 from tempfile import mkstemp
 
-import version
+from jcms import version
 
 mods = [
     'jcauth.__init__',
@@ -20,10 +20,10 @@ mods = [
     'jcms.response',
     'jcms.settings',
     'jcms.urls',
+    'jcms.version',
     'jcms.wsgi',
 
     'jcmsmain',
-    'version',
 ]
 testmods = [
     'jcauth.urls_t',
@@ -32,10 +32,10 @@ testmods = [
     'jcindex.views_t',
 
     'jcms.response_t',
+    'jcms.version_t',
 
     'jcmstest',
     'jcmsprof',
-    'version_t',
 ]
 allmods = mods.copy ()
 allmods.extend (testmods)
