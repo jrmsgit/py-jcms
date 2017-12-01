@@ -8,12 +8,13 @@ default: build
 clean:
 	@rm -rf htmlcov build
 	@rm -f jcmstest.profile .coverage
-	@rm -f *.c *.html *.so
+	@find . -type d -name __pycache__ | xargs rm -rf
+	@find . -type f -name '*.c' | xargs rm -f
+	@find . -type f -name '*.so' | xargs rm -f
 
 .PHONY: distclean
 distclean: clean
 	@rm -rf dist jcms.egg-info
-	@find . -type d -name __pycache__ | xargs rm -rf
 	@rm -f db.sqlite3
 
 .PHONY: coverage
@@ -40,13 +41,17 @@ lang-compile:
 .PHONY: lang
 lang: lang-extract lang-compile
 
+.PHONY: buildext
+buildext:
+	@$(PYTHON) setup.py build_ext
+
 .PHONY: build
 build:
 	@$(PYTHON) setup.py build
 
 .PHONY: dist
 dist:
-	@$(PYTHON) setup.py bdist_wheel
+	$(PYTHON) setup.py -q bdist_wheel
 
 .PHONY: test
 test:

@@ -18,9 +18,13 @@ matrix:
 
 install:
   - pip install -q -r requirements.txt
+  - pip install -q -r requirements-dev.txt
   - pip install -q -r requirements-test.txt
 
 script:
   - python3 -m version_t
   - make coverage
   - if test 'Xyes' = "X$JCMSPROFILE"; then make profile; fi
+
+after_success:
+  - make dist
