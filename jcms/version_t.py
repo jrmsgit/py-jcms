@@ -90,7 +90,8 @@ class TestVersion (TestCase):
     def testInstallFiles (t):
         t.maxDiff = None
         d = {
-            '': ['LICENSE', 'README.rst', 'version.pxd'],
+            '': ['LICENSE', 'README.rst'],
+            'jcms': ['version.pxd'],
             path.join ('jcauth', 'templates', 'jcms'): [
                 'login.html',
                 'password_change_done.html',
@@ -114,7 +115,7 @@ class TestVersion (TestCase):
             for fn in d.get (dn):
                 l2.append (path.join (dn, fn))
             l.append ((dn, l2))
-        t.assertListEqual (l, version.installFiles ())
+        t.assertListEqual (l, sorted (version.installFiles ()))
 
 
 if __name__ == '__main__':
