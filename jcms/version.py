@@ -66,12 +66,29 @@ def installModules (tests = 0):
         l.append (n)
     return sorted (l)
 
-def installFiles ():
-    tpldirs = sorted ([d for d in glob ('*/templates/*') if not d.endswith ('jcmstest')])
-    l = [
-        ('', sorted (['LICENSE', 'README.rst'])),
-        ('jcms', sorted (glob ('jcms/*.pxd'))),
-    ]
-    for d in tpldirs:
+def tplFiles ():
+    tpldirs = glob ('*/templates/*')
+    l = []
+    for d in sorted (tpldirs):
         l.append ((d, sorted (glob ('{}/*.*'.format (d)))))
+    return l
+
+def pxdFiles ():
+    dirs = ['jcms']
+    l = []
+    for d in sorted (dirs):
+        l.append ((d, sorted (glob ('{}/*.pxd'.format (d)))))
+    return l
+
+def installFiles ():
+    l = [('', sorted (['LICENSE', 'README.rst']))]
+    l.extend (pxdFiles ())
+    l.extend (tplFiles ())
+    return l
+
+def extModules ():
+    l = []
+    for _, files in pxdFiles ():
+        for fn in files:
+            l.append (fn.replace ('.pxd', '.py', 1))
     return l

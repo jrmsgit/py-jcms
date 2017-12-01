@@ -51,7 +51,7 @@ build:
 
 .PHONY: dist
 dist:
-	$(PYTHON) setup.py -q bdist_wheel
+	$(PYTHON) setup.py bdist_wheel
 
 .PHONY: test
 test:

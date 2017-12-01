@@ -24,7 +24,7 @@ setup (
 
     install_requires = version.catfile ('requirements.txt').split (),
 
-    ext_modules = cythonize ('jcms/version.py'),
+    ext_modules = cythonize (version.extModules ()),
     py_modules = version.installModules (),
     data_files = version.installFiles (),
 

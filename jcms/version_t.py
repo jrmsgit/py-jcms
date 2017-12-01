@@ -117,6 +117,10 @@ class TestVersion (TestCase):
             l.append ((dn, l2))
         t.assertListEqual (l, sorted (version.installFiles ()))
 
+    def testExtModules (t):
+        l = sorted (['jcms/version.py'])
+        t.assertListEqual (l, version.extModules ())
+
 
 if __name__ == '__main__':
     missingOK = []

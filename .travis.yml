@@ -22,7 +22,7 @@ install:
   - pip install -q -r requirements-test.txt
 
 script:
-  - python3 -m version_t
+  - python3 -m jcms.version_t
   - make coverage
   - if test 'Xyes' = "X$JCMSPROFILE"; then make profile; fi
 
