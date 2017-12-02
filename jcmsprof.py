@@ -29,7 +29,7 @@ class ProfStats (object):
         stats = pstats.Stats (filename)
         stats.sort_stats ('ncalls', 'cumtime')
         stats.stream = io.StringIO ()
-        stats.print_stats (".*jcms{}.*".format (path.sep))
+        stats.print_stats (".*{}jcms{}.*".format (path.sep, path.sep))
         stats.stream.seek (0, 0)
         eno = 0
         readheader = True
