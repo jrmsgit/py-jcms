@@ -134,4 +134,4 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/user/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 
-LOCALE_PATHS = [os.path.join (BASE_DIR, 'lang')]
+LOCALE_PATHS = [os.path.join (BASE_DIR, 'jcmslang')]
