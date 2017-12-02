@@ -30,9 +30,8 @@ build: off
 before_test:
   - "%PYTHON%\\python.exe --version"
   - "%PYTHON%\\python.exe -m cython --version"
-  - "%PYTHON%\\python.exe setup.py build_ext"
+  - "%PYTHON%\\python.exe setup.py build_ext --inplace"
   - "%PYTHON%\\python.exe setup.py build"
-  - "%PYTHON%\\python.exe setup.py clean -va"
   - "git clean -xfd"
 
 test_script:
@@ -41,7 +40,6 @@ test_script:
   - "IF Xyes==X%JCMSPROFILE% %PYTHON%\\python.exe jcmsprof.py"
 
 after_test:
-  - "%PYTHON%\\python.exe setup.py clean -va"
   - "git clean -xfd"
   - "%PYTHON%\\python.exe setup.py bdist_wheel"
   - "%PYTHON%\\python.exe -m jcms.version"

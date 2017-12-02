@@ -54,7 +54,9 @@ def installModules (tests = False):
                 continue
             elif n == 'jcmsprof.py':
                 continue
-        if n == 'setup.py':
+        if n.startswith ('build'):
+            continue
+        elif n == 'setup.py':
             continue
         elif n == 'devcli.py':
             continue

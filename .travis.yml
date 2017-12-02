@@ -22,12 +22,11 @@ install:
   - cc --version
 
 before_script:
-  - make buildext
   - make build
-  - make clean
   - python3 -m jcms.version_t
 
 script:
+  - make distclean
   - make coverage
   - if test 'Xyes' = "X$JCMSPROFILE"; then make profile; fi
 

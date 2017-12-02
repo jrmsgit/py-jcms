@@ -24,7 +24,11 @@ setup (
 
     install_requires = version.catfile ('requirements.txt').split (),
 
-    ext_modules = cythonize (version.extModules ()),
+    ext_modules = cythonize (version.extModules (),
+            compiler_directives = {
+                'language_level': 3,
+                'profile': False,
+                'linetrace': False}),
     py_modules = version.installModules (),
     data_files = version.installFiles (),
 

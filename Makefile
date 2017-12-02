@@ -9,11 +9,10 @@ default: build
 
 .PHONY: clean
 clean:
+	@find . -type d -name __pycache__ | xargs rm -vrf
 	@rm -vrf htmlcov build
 	@rm -vf jcmstest.profile .coverage
-	@find . -type d -name __pycache__ | xargs rm -vrf
-	@find . -type f -name '*.c' | xargs rm -vf
-	@find . -type f -name '*.so' | xargs rm -vf
+	@rm -vf */*.html */*.c */*.so
 
 .PHONY: distclean
 distclean: clean
@@ -46,19 +45,22 @@ lang: lang-extract lang-compile
 
 .PHONY: buildext
 buildext:
-	@$(PYTHON) setup.py build_ext
+	@$(PYTHON) setup.py build_ext --inplace
 
 .PHONY: build
-build:
+build: buildext
 	@$(PYTHON) setup.py build
 
 .PHONY: dist
 dist:
 	$(PYTHON) setup.py bdist_wheel
 
-.PHONY: test
-test:
+.PHONY: check
+check:
 	@$(PYTHON) manage.py check
+
+.PHONY: test
+test: check
 	@$(PYTHON) jcmstest.py
 
 .PHONY: install
