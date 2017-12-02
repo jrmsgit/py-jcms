@@ -18,20 +18,19 @@ matrix:
 
 install:
   - pip install -q -r requirements.txt
-
-before_script:
-  - python3 --version
   - cython --version
   - cc --version
+
+before_script:
   - make buildext
   - make build
   - make clean
+  - python3 -m jcms.version_t
 
 script:
-  - python3 -m jcms.version_t
   - make coverage
   - if test 'Xyes' = "X$JCMSPROFILE"; then make profile; fi
 
 after_success:
-  - make clean dist
+  - make distclean dist
   - python3 -m jcms.version

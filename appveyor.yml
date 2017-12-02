@@ -33,6 +33,7 @@ before_test:
   - "%PYTHON%\\python.exe setup.py build_ext"
   - "%PYTHON%\\python.exe setup.py build"
   - "%PYTHON%\\python.exe setup.py clean -va"
+  - "git clean -xfd"
 
 test_script:
   - "%PYTHON%\\python.exe -m coverage run jcmstest.py"
@@ -41,6 +42,7 @@ test_script:
 
 after_test:
   - "%PYTHON%\\python.exe setup.py clean -va"
+  - "git clean -xfd"
   - "%PYTHON%\\python.exe setup.py bdist_wheel"
   - "%PYTHON%\\python.exe -m jcms.version"
 
