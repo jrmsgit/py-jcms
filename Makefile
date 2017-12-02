@@ -6,16 +6,16 @@ default: build
 
 .PHONY: clean
 clean:
-	@rm -rf htmlcov build
-	@rm -f jcmstest.profile .coverage
-	@find . -type d -name __pycache__ | xargs rm -rf
-	@find . -type f -name '*.c' | xargs rm -f
-	@find . -type f -name '*.so' | xargs rm -f
+	@rm -vrf htmlcov build
+	@rm -vf jcmstest.profile .coverage
+	@find . -type d -name __pycache__ | xargs rm -vrf
+	@find . -type f -name '*.c' | xargs rm -vf
+	@find . -type f -name '*.so' | xargs rm -vf
 
 .PHONY: distclean
 distclean: clean
-	@rm -rf dist jcms.egg-info
-	@rm -f db.sqlite3
+	@rm -vrf dist jcms.egg-info
+	@rm -vf db.sqlite3
 
 .PHONY: coverage
 coverage:

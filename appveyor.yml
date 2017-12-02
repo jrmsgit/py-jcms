@@ -35,11 +35,13 @@ before_test:
 test_script:
   - "%PYTHON%\\python.exe setup.py build_ext"
   - "%PYTHON%\\python.exe setup.py build"
+  - "%PYTHON%\\python.exe setup.py clean -va"
   - "%PYTHON%\\python.exe -m coverage run jcmstest.py"
   - "%PYTHON%\\python.exe -m coverage report"
   - "IF Xyes==X%JCMSPROFILE% %PYTHON%\\python.exe jcmsprof.py"
 
 after_test:
+  - "%PYTHON%\\python.exe setup.py clean -va"
   - "%PYTHON%\\python.exe setup.py bdist_wheel"
 
 artifacts:
