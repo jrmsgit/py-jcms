@@ -1,5 +1,8 @@
-PYTHON ?= python3
 PIP ?= pip3
+PYTHON ?= python3
+VENVDIR ?= /opt/pyenv/jcms
+VENVPIP = $(VENVDIR)/bin/$(PIP)
+VENVPYTHON = $(VENVDIR)/bin/$(PYTHON)
 
 .PHONY: default
 default: build
@@ -64,3 +67,13 @@ install:
 .PHONY: uninstall
 uninstall:
 	@$(PIP) uninstall -y jcms
+
+.PHONY: venv
+venv:
+	@$(PYTHON) -m venv --symlinks $(VENVDIR)
+	@$(VENVPIP) install -U --upgrade-strategy only-if-needed -r requirements.txt
+	@echo "$(VENVDIR) venv created"
+
+.PHONY: venv-remove
+venv-remove:
+	rm -rf $(VENVDIR)

@@ -1,4 +1,4 @@
-)*.sw2
+*.swp
 *.c
 *.so
 db.sqlite3
