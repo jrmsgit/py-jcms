@@ -22,7 +22,7 @@ from jcindex import views
 apipatterns = ([
     url (r'^$', views.index, name = 'index'),
     url (r'^auth/', include ('jcauth.urls')),
-], '')
+], 'jcms')
 
 urlpatterns = [
     url (r'^$', views.index, name = 'index'),

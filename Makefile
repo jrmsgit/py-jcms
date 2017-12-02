@@ -58,6 +58,7 @@ dist:
 
 .PHONY: test
 test:
+	@$(PYTHON) manage.py check
 	@$(PYTHON) jcmstest.py
 
 .PHONY: install
