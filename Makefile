@@ -1,6 +1,6 @@
 PIP ?= pip3
 PYTHON ?= python3
-VENVDIR ?= /opt/pyenv/jcms
+VENVDIR ?= /var/opt/jcms.venv
 VENVPIP = $(VENVDIR)/bin/$(PIP)
 VENVPYTHON = $(VENVDIR)/bin/$(PYTHON)
 
@@ -78,3 +78,10 @@ venv:
 .PHONY: venv-remove
 venv-remove:
 	rm -rf $(VENVDIR)
+
+.PHONY: venv-info
+venv-info:
+	@echo $(VENVDIR)
+	@$(VENVPYTHON) --version
+	@$(VENVPIP) --version
+	@$(VENVPIP) freeze | sort -u
