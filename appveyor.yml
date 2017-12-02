@@ -24,19 +24,17 @@ matrix:
 
 install:
   - "%PYTHON%\\python.exe -m pip install -q -r requirements.txt"
-  - "%PYTHON%\\python.exe -m pip install -q -r requirements-dev.txt"
-  - "%PYTHON%\\python.exe -m pip install -q -r requirements-test.txt"
 
 build: off
 
 before_test:
   - "%PYTHON%\\python.exe --version"
   - "%PYTHON%\\python.exe -m cython --version"
-
-test_script:
   - "%PYTHON%\\python.exe setup.py build_ext"
   - "%PYTHON%\\python.exe setup.py build"
   - "%PYTHON%\\python.exe setup.py clean -va"
+
+test_script:
   - "%PYTHON%\\python.exe -m coverage run jcmstest.py"
   - "%PYTHON%\\python.exe -m coverage report"
   - "IF Xyes==X%JCMSPROFILE% %PYTHON%\\python.exe jcmsprof.py"
