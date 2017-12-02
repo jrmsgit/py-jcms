@@ -118,7 +118,7 @@ class TestVersion (TestCase):
         t.assertListEqual (l, sorted (version.installFiles ()))
 
     def testExtModules (t):
-        l = sorted (['jcms/version.py'])
+        l = sorted ([path.join ('jcms', 'version.py')])
         t.assertListEqual (l, version.extModules ())
 
 
