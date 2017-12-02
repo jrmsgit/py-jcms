@@ -21,6 +21,11 @@ install:
   - pip install -q -r requirements-dev.txt
   - pip install -q -r requirements-test.txt
 
+before_script:
+  - python3 --version
+  - cython --version
+  - cc --version
+
 script:
   - make buildext
   - make build
