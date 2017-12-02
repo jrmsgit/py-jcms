@@ -92,3 +92,6 @@ def extModules ():
         for fn in files:
             l.append (fn.replace ('.pxd', '.py', 1))
     return l
+
+if __name__ == '__main__':
+    print (string ())

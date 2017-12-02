@@ -36,3 +36,4 @@ script:
 
 after_success:
   - make clean dist
+  - python3 -m jcms.version

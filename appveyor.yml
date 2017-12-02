@@ -44,6 +44,7 @@ test_script:
 after_test:
   - "%PYTHON%\\python.exe setup.py clean -va"
   - "%PYTHON%\\python.exe setup.py bdist_wheel"
+  - "%PYTHON%\\python.exe -m jcms.version"
 
 artifacts:
   - path: dist\*
