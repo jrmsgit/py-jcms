@@ -23,7 +23,7 @@ coverage:
 	@$(PYTHON) -m coverage report
 
 .PHONY: htmlcov
-htmlcov: coverage
+htmlcov:
 	@$(PYTHON) -m coverage html
 
 .PHONY: profile

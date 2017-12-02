@@ -92,6 +92,12 @@ class TestVersion (TestCase):
         d = {
             '': ['LICENSE', 'README.rst'],
             'jcms': ['version.pxd'],
+            path.join ('jcmslang', 'en', 'LC_MESSAGES'): [
+                'django.mo', 'django.po',
+            ],
+            path.join ('jcmslang', 'es', 'LC_MESSAGES'): [
+                'django.mo', 'django.po',
+            ],
             path.join ('jcauth', 'templates', 'jcms'): [
                 'login.html',
                 'password_change_done.html',

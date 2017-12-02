@@ -80,10 +80,18 @@ def pxdFiles ():
         l.append ((d, sorted (glob ('{}/*.pxd'.format (d)))))
     return l
 
+def langFiles ():
+    l = []
+    for d in sorted (glob ('jcmslang/*/LC_MESSAGES')):
+        l.append ((d, sorted (glob ('{}/django.*'.format (d)))))
+    return l
+
+
 def installFiles ():
     l = [('', sorted (['LICENSE', 'README.rst']))]
     l.extend (pxdFiles ())
     l.extend (tplFiles ())
+    l.extend (langFiles ())
     return l
 
 def extModules ():
@@ -93,5 +101,5 @@ def extModules ():
             l.append (fn.replace ('.pxd', '.py', 1))
     return l
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     print (string ())
