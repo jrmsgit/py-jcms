@@ -53,6 +53,7 @@ build: buildext
 
 .PHONY: dist
 dist:
+	$(PYTHON) setup.py sdist
 	$(PYTHON) setup.py bdist_wheel
 
 .PHONY: check
@@ -60,7 +61,7 @@ check:
 	@$(PYTHON) manage.py check
 
 .PHONY: test
-test: check
+test:
 	@$(PYTHON) jcmstest.py
 
 .PHONY: install
