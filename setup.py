@@ -24,18 +24,15 @@ setup (
 
     install_requires = version.catfile ('requirements.txt').split (),
 
+    packages = version.packages (),
+    package_dir = version.packageDir (),
+    package_data = version.packageData (),
+
     ext_modules = cythonize (version.extModules (),
             compiler_directives = {
                 'language_level': 3,
                 'profile': False,
                 'linetrace': False}),
-
-    # ~ py_modules = version.installModules (),
-    # ~ data_files = version.installFiles (),
-    packages = version.packages (),
-    package_dir = version.packageDir (),
-    package_data = version.packageData (),
-    # ~ data_files = version.dataFiles (),
 
     zip_safe = False,
 

@@ -78,6 +78,8 @@ def packageData ():
             pkgfiles.append (r'fixtures/*.*')
         if len (glob ("{}/*.pxd".format (pkgdir))) > 0:
             pkgfiles.append (r'*.pxd')
+        if len (glob ("{}/*/LC_MESSAGES/django.*".format (pkgdir))) > 0:
+            pkgfiles.append (r'*/LC_MESSAGES/django.*')
         if len (pkgfiles) > 0:
             pd[pkgname] = pkgfiles
     return pd
