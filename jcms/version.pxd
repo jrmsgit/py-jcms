@@ -1,15 +1,8 @@
-cpdef get ()
-
-cpdef string ()
-
 cpdef catfile (fpath)
-
-cpdef installModules (tests = *)
-
-cpdef tplFiles ()
-
-cpdef pxdFiles ()
-
-cpdef installFiles ()
-
 cpdef extModules ()
+cpdef get ()
+cpdef langFiles ()
+cpdef packageData ()
+cpdef packageDir ()
+cpdef packages ()
+cpdef string ()

@@ -4,42 +4,6 @@ from tempfile import mkstemp
 
 from jcms import version
 
-mods = [
-    'jcauth.__init__',
-    'jcauth.apps',
-    'jcauth.urls',
-
-    'jcindex.__init__',
-    'jcindex.admin',
-    'jcindex.apps',
-    'jcindex.migrations.__init__',
-    'jcindex.models',
-    'jcindex.views',
-
-    'jcms.__init__',
-    'jcms.response',
-    'jcms.settings',
-    'jcms.urls',
-    'jcms.version',
-    'jcms.wsgi',
-
-    'jcmsmain',
-]
-testmods = [
-    'jcauth.urls_t',
-    'jcauth.views_t',
-
-    'jcindex.views_t',
-
-    'jcms.response_t',
-    'jcms.version_t',
-
-    'jcmstest',
-    'jcmsprof',
-]
-allmods = mods.copy ()
-allmods.extend (testmods)
-allmods = sorted (allmods)
 
 class TestVersion (TestCase):
     _version = None
@@ -80,52 +44,20 @@ class TestVersion (TestCase):
         finally:
             unlink (fn)
 
-    def testInstallModules (t):
-        t.assertListEqual (mods, version.installModules ())
-
-    def testInstallModulesTests (t):
-        t.assertListEqual (allmods,
-                version.installModules (tests = True))
-
-    def testInstallFiles (t):
-        t.maxDiff = None
-        d = {
-            '': ['LICENSE', 'README.rst'],
-            'jcms': ['version.pxd'],
-            path.join ('jcmslang', 'en', 'LC_MESSAGES'): [
-                'django.mo', 'django.po',
-            ],
-            path.join ('jcmslang', 'es', 'LC_MESSAGES'): [
-                'django.mo', 'django.po',
-            ],
-            path.join ('jcauth', 'templates', 'jcms'): [
-                'login.html',
-                'password_change_done.html',
-                'password_change_form.html',
-                'password_reset_complete.html',
-                'password_reset_confirm.html',
-                'password_reset_done.html',
-                'password_reset_email.txt',
-                'password_reset_form.html',
-                'password_reset_subject.txt',
-            ],
-            path.join ('jcindex', 'templates', 'jcms'): [
-                'base.html',
-                'index.html',
-                'test.html',
-            ],
-        }
-        l = []
-        for dn in sorted (d.keys ()):
-            l2 = []
-            for fn in d.get (dn):
-                l2.append (path.join (dn, fn))
-            l.append ((dn, l2))
-        t.assertListEqual (l, sorted (version.installFiles ()))
+    def testLangFiles (t):
+        pass
 
     def testExtModules (t):
-        l = sorted ([path.join ('jcms', 'version.py')])
-        t.assertListEqual (l, version.extModules ())
+        pass
+
+    def testPackages (t):
+        pass
+
+    def testPackageDir (t):
+        pass
+
+    def testPackageData (t):
+        pass
 
 
 if __name__ == '__main__':

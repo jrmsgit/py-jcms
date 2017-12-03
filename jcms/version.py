@@ -41,67 +41,46 @@ def catfile (fpath):
         fh.close ()
     return blob
 
-def installModules (tests = False):
-    l = []
-    p = glob ('*.py')
-    p.extend (glob ('*/*.py'))
-    p.extend (glob ('*/*/*.py'))
-    for n in p:
-        if not tests:
-            if n.endswith ('_t.py'):
-               continue
-            elif n == 'jcmstest.py':
-                continue
-            elif n == 'jcmsprof.py':
-                continue
-        if n.startswith ('build'):
-            continue
-        elif n == 'setup.py':
-            continue
-        elif n == 'devcli.py':
-            continue
-        elif n == 'devdb.py':
-            continue
-        elif n == 'manage.py':
-            continue
-        n = n.replace ('.py', '').replace (path.sep, '.')
-        l.append (n)
-    return sorted (l)
-
-def tplFiles ():
-    tpldirs = glob ('*/templates/*')
-    l = []
-    for d in sorted (tpldirs):
-        l.append ((d, sorted (glob ('{}/*.*'.format (d)))))
-    return l
-
-def pxdFiles ():
-    dirs = ['jcms']
-    l = []
-    for d in sorted (dirs):
-        l.append ((d, sorted (glob ('{}/*.pxd'.format (d)))))
-    return l
-
 def langFiles ():
     l = []
     for d in sorted (glob ('jcmslang/*/LC_MESSAGES')):
-        l.append ((d, sorted (glob ('{}/django.*'.format (d)))))
-    return l
-
-
-def installFiles ():
-    l = [('', sorted (['LICENSE', 'README.rst']))]
-    l.extend (pxdFiles ())
-    l.extend (tplFiles ())
-    l.extend (langFiles ())
+        l.extend (sorted (glob ('{}/django.*'.format (d))))
     return l
 
 def extModules ():
     l = []
-    for _, files in pxdFiles ():
-        for fn in files:
-            l.append (fn.replace ('.pxd', '.py', 1))
+    for fn in sorted (glob ('*/*.pxd')):
+        l.append (fn.replace ('.pxd', '.py', 1))
     return l
+
+def packages ():
+    f = glob ('*/__init__.py')
+    f.extend (glob ('*/migrations/__init__.py'))
+    l = []
+    for m in sorted (f):
+        if m.endswith ('__init__.py'):
+            l.append (path.dirname (m).replace (path.sep, '.'))
+    return l
+
+def packageDir ():
+    pd = {}
+    for pkg in packages ():
+        pd[pkg] = pkg.replace ('.', path.sep)
+    return pd
+
+def packageData ():
+    pd = {}
+    for pkgname, pkgdir in packageDir ().items ():
+        pkgfiles = []
+        if path.isdir (path.join (pkgdir, 'templates', 'jcms')):
+            pkgfiles.append (r'templates/jcms/*.*')
+        if path.isdir (path.join (pkgdir, 'fixtures')):
+            pkgfiles.append (r'fixtures/*.*')
+        if len (glob ("{}/*.pxd".format (pkgdir))) > 0:
+            pkgfiles.append (r'*.pxd')
+        if len (pkgfiles) > 0:
+            pd[pkgname] = pkgfiles
+    return pd
 
 if __name__ == '__main__': # pragma: no cover
     print (string ())
