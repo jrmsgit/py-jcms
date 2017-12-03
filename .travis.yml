@@ -23,7 +23,6 @@ install:
 
 before_script:
   - make build
-  - python3 -m jcms.version_t
 
 script:
   - make distclean
