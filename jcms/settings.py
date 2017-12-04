@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # jcms
     'jcms.jcauth.apps.JcauthConfig',
     'jcms.jcindex.apps.JcindexConfig',
+    'jcms.webapp.apps.WebappConfig',
 ]
 
 MIDDLEWARE = [
