@@ -6,7 +6,7 @@ from jcms import version
 def run (chdir = True):
     if chdir:
         oldcwd = os.getcwd ()
-        os.chdir (path.realpath (path.dirname (path.dirname (__file__))))
+        os.chdir (path.dirname (path.dirname (path.dirname (path.realpath (__file__)))))
         print (os.getcwd ())
 
     os.environ.setdefault ("DJANGO_SETTINGS_MODULE", "jcms.settings")
