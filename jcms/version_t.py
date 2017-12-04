@@ -64,6 +64,7 @@ class TestVersion (TestCase):
             'jcms.jcindex': path.join ('jcms', 'jcindex'),
             'jcms.jcindex.migrations':
                     path.join ('jcms', 'jcindex', 'migrations'),
+            'jcms.webapp': path.join ('jcms', 'webapp'),
         }
         t.assertDictEqual (d, version.packageDir ())
 
@@ -74,5 +75,6 @@ class TestVersion (TestCase):
             'jcms.jcauth',
             'jcms.jcindex',
             'jcms.jcindex.migrations',
+            'jcms.webapp',
         ]
         t.assertListEqual (l, version.packages ())
