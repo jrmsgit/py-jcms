@@ -17,15 +17,15 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from jcindex import views
+import jcindex.views
 
 apipatterns = ([
-    url (r'^$', views.index, name = 'index'),
+    url (r'^$', jcindex.views.index, name = 'index'),
     url (r'^auth/', include ('jcms.jcauth.urls')),
 ], 'jcms')
 
 urlpatterns = [
-    url (r'^$', views.index, name = 'index'),
+    url (r'^$', jcindex.views.index, name = 'index'),
     url (r'^api/', include (apipatterns, namespace = 'api')),
     url (r'^_/', admin.site.urls),
     url (r'^auth/', include ('jcms.jcauth.urls')),
