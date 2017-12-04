@@ -1,7 +1,6 @@
 cpdef catfile (fpath)
 cpdef extModules ()
 cpdef get ()
-cpdef langFiles ()
 cpdef packageData ()
 cpdef packageDir ()
 cpdef packages ()

@@ -44,33 +44,37 @@ class TestVersion (TestCase):
         finally:
             unlink (fn)
 
-    def testLangFiles (t):
-        pass
-
     def testExtModules (t):
-        pass
-
-    def testPackages (t):
-        pass
-
-    def testPackageDir (t):
-        pass
+        l = [path.join ('jcms', 'version.py')]
+        t.assertListEqual (l, version.extModules ())
 
     def testPackageData (t):
-        pass
+        d = {
+            'jcauth': ['templates/jcms/*.*', 'fixtures/*.*'],
+            'jcindex': ['templates/jcms/*.*'],
+            'jcms': ['*.pxd'],
+            'jcmslang': ['*/LC_MESSAGES/django.*'],
+        }
+        t.assertDictEqual (d, version.packageData ())
 
+    def testPackageDir (t):
+        d = {
+            'jcauth': 'jcauth',
+            'jcindex': 'jcindex',
+            'jcindex.migrations': path.join ('jcindex', 'migrations'),
+            'jcms': 'jcms',
+            'jcms.cmd': path.join ('jcms', 'cmd'),
+            'jcmslang': 'jcmslang',
+        }
+        t.assertDictEqual (d, version.packageDir ())
 
-if __name__ == '__main__':
-    missingOK = []
-    missing = []
-    for m in mods:
-        if m.endswith ('.__init__'):
-            # ignore __init__.py files (they don't have code on them)
-            continue
-        n = m + '_t'
-        if n not in testmods and n not in missingOK:
-            missing.append (n)
-    if len (missing) > 0:
-        print ('missing test files:')
-        for n in sorted (missing):
-            print (' ', n)
+    def testPackages (t):
+        l = [
+            'jcauth',
+            'jcindex',
+            'jcindex.migrations',
+            'jcms',
+            'jcms.cmd',
+            'jcmslang',
+        ]
+        t.assertListEqual (l, version.packages ())

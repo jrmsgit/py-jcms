@@ -41,12 +41,6 @@ def catfile (fpath):
         fh.close ()
     return blob
 
-def langFiles ():
-    l = []
-    for d in sorted (glob ('jcmslang/*/LC_MESSAGES')):
-        l.extend (sorted (glob ('{}/django.*'.format (d))))
-    return l
-
 def extModules ():
     l = []
     for fn in sorted (glob ('*/*.pxd')):
@@ -61,7 +55,9 @@ def packages ():
     l = []
     for m in sorted (f):
         if m.endswith ('__init__.py'):
-            l.append (path.dirname (m).replace (path.sep, '.'))
+            n = path.dirname (m).replace (path.sep, '.')
+            if n not in l:
+                l.append (n)
     return l
 
 def packageDir ():
