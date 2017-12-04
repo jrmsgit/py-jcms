@@ -61,7 +61,7 @@ class ProfStats (object):
 
     def _fmtEntryHeader (self, s):
         s.write ('\n')
-        if len (self.eheader) > 0:
+        if self.eheader is None or len (self.eheader) > 0:
             s.write (ENTRY_FMT.format (*[i.strip () for i in self.eheader]))
         else:
             s.write ('ERROR: no entries header...')
