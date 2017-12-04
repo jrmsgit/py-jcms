@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 20171007\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-04 00:45+0000\n"
+"POT-Creation-Date: 2017-12-04 01:00+0000\n"
 "PO-Revision-Date: 2017-10-07 03:40:14-0300\n"
 "Last-Translator: Jeremías Casteglione <jrmsdev@gmail.com>\n"
 "Language-Team: jcms <jrmsdev@gmail.com>\n"
@@ -17,31 +17,31 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: jcauth/templates/jcms/password_reset_email.txt:2
+#: jcms/jcauth/templates/jcms/password_reset_email.txt:2
 #, python-format
 msgid ""
 "You're receiving this email because you requested a password reset for your "
 "user account at %(site_name)s."
 msgstr ""
 
-#: jcauth/templates/jcms/password_reset_email.txt:4
+#: jcms/jcauth/templates/jcms/password_reset_email.txt:4
 msgid "Please go to the following page and choose a new password:"
 msgstr ""
 
-#: jcauth/templates/jcms/password_reset_email.txt:8
+#: jcms/jcauth/templates/jcms/password_reset_email.txt:8
 msgid "Your username, in case you've forgotten:"
 msgstr ""
 
-#: jcauth/templates/jcms/password_reset_email.txt:10
+#: jcms/jcauth/templates/jcms/password_reset_email.txt:10
 msgid "Thanks for using our site!"
 msgstr ""
 
-#: jcauth/templates/jcms/password_reset_email.txt:12
+#: jcms/jcauth/templates/jcms/password_reset_email.txt:12
 #, python-format
 msgid "The %(site_name)s team"
 msgstr ""
 
-#: jcauth/templates/jcms/password_reset_subject.txt:2
+#: jcms/jcauth/templates/jcms/password_reset_subject.txt:2
 #, python-format
 msgid "Password reset on %(site_name)s"
 msgstr ""
