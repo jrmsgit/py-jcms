@@ -53,7 +53,7 @@ class TestVersion (TestCase):
             'jcauth': ['templates/jcms/*.*', 'fixtures/*.*'],
             'jcindex': ['templates/jcms/*.*'],
             'jcms': ['*.pxd'],
-            'jcmslang': ['*/LC_MESSAGES/django.*'],
+            'jcms.lang': ['*/LC_MESSAGES/django.*'],
         }
         t.assertDictEqual (d, version.packageData ())
 
@@ -64,7 +64,7 @@ class TestVersion (TestCase):
             'jcindex.migrations': path.join ('jcindex', 'migrations'),
             'jcms': 'jcms',
             'jcms.cmd': path.join ('jcms', 'cmd'),
-            'jcmslang': 'jcmslang',
+            'jcms.lang': path.join ('jcms', 'lang'),
         }
         t.assertDictEqual (d, version.packageDir ())
 
@@ -75,6 +75,6 @@ class TestVersion (TestCase):
             'jcindex.migrations',
             'jcms',
             'jcms.cmd',
-            'jcmslang',
+            'jcms.lang',
         ]
         t.assertListEqual (l, version.packages ())
