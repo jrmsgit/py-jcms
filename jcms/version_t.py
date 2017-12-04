@@ -50,31 +50,31 @@ class TestVersion (TestCase):
 
     def testPackageData (t):
         d = {
-            'jcauth': ['templates/jcms/*.*', 'fixtures/*.*'],
             'jcindex': ['templates/jcms/*.*'],
             'jcms': ['*.pxd'],
+            'jcms.jcauth': ['templates/jcms/*.*', 'fixtures/*.*'],
             'jcms.lang': ['*/LC_MESSAGES/django.*'],
         }
         t.assertDictEqual (d, version.packageData ())
 
     def testPackageDir (t):
         d = {
-            'jcauth': 'jcauth',
             'jcindex': 'jcindex',
             'jcindex.migrations': path.join ('jcindex', 'migrations'),
             'jcms': 'jcms',
             'jcms.cmd': path.join ('jcms', 'cmd'),
+            'jcms.jcauth': path.join ('jcms', 'jcauth'),
             'jcms.lang': path.join ('jcms', 'lang'),
         }
         t.assertDictEqual (d, version.packageDir ())
 
     def testPackages (t):
         l = [
-            'jcauth',
             'jcindex',
             'jcindex.migrations',
             'jcms',
             'jcms.cmd',
+            'jcms.jcauth',
             'jcms.lang',
         ]
         t.assertListEqual (l, version.packages ())

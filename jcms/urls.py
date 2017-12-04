@@ -21,12 +21,12 @@ from jcindex import views
 
 apipatterns = ([
     url (r'^$', views.index, name = 'index'),
-    url (r'^auth/', include ('jcauth.urls')),
+    url (r'^auth/', include ('jcms.jcauth.urls')),
 ], 'jcms')
 
 urlpatterns = [
     url (r'^$', views.index, name = 'index'),
     url (r'^api/', include (apipatterns, namespace = 'api')),
     url (r'^_/', admin.site.urls),
-    url (r'^auth/', include ('jcauth.urls')),
+    url (r'^auth/', include ('jcms.jcauth.urls')),
 ]
