@@ -12,10 +12,11 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
-import os
+from os import path
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname (os.path.dirname (os.path.realpath (__file__)))
+# Build paths inside the project like this: path.join(BASE_DIR, ...)
+BASE_DIR = path.dirname (path.dirname (path.realpath (__file__)))
+JCMS_DIR = path.join (path.sep, 'var', 'opt', 'jcms')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -77,7 +78,7 @@ WSGI_APPLICATION = 'jcms.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join (os.path.sep, 'var', 'opt', 'jcms', 'devdb.sqlite3'),
+        'NAME': path.join (JCMS_DIR, 'devdb.sqlite3'),
     }
 }
 
@@ -121,7 +122,7 @@ STATIC_URL = '/static/'
 ADMINS = [('Jeremías', 'jrmsdev@gmail.com')]
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join (os.path.sep, 'var', 'opt', 'jcms', 'mbox'),
+EMAIL_FILE_PATH = path.join (JCMS_DIR, 'mbox'),
 
 #~ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 #~ EMAIL_HOST = 'localhost'
@@ -134,4 +135,4 @@ LOGIN_URL = '/auth/login/'
 LOGIN_REDIRECT_URL = '/user/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
 
-LOCALE_PATHS = [os.path.join (BASE_DIR, 'jcms', 'lang')]
+LOCALE_PATHS = [path.join (BASE_DIR, 'jcms', 'lang')]
