@@ -47,10 +47,11 @@ class ProfStats (object):
                         self.headers.append (i)
                 else:
                     # read entry
-                    fn = i[-1].replace (SRCDIR, '', 1).split (':')[0]
-                    if not fn.endswith ('testcmd.py') and not fn.endswith ('_t.py'):
-                        self.entries[eno] = StatEntry (i)
-                        eno += 1
+                    if i[-1].startswith (SRCDIR):
+                        fn = i[-1].replace (SRCDIR, '', 1).split (':')[0]
+                        if not fn.endswith ('testcmd.py') and not fn.endswith ('_t.py'):
+                            self.entries[eno] = StatEntry (i)
+                            eno += 1
 
     def _fmtHeaders (self, s):
         for h in self.headers:
