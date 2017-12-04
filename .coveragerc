@@ -4,7 +4,7 @@ omit =
     */site-packages/*
     */__init__.py
     *_t.py
-    jcmscmd/testcmd.py
+    jcms/cmd/testcmd.py
     manage.py
     jcmstest.py
     jcmsprof.py
