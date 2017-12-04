@@ -38,9 +38,9 @@ setup (
 
     entry_points = {
         'console_scripts': [
-            'jcms=jcmscmd.maincmd:run',
-            'jcmstest=jcmscmd.testcmd:run',
-            'jcmsprofile=jcmscmd.profcmd:run',
+            'jcms=jcms.cmd.maincmd:run',
+            'jcmstest=jcms.cmd.testcmd:run',
+            'jcmsprofile=jcms.cmd.profcmd:run',
         ],
     },
 

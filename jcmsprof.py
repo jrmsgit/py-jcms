@@ -1,4 +1,4 @@
 #!/usr/bin/env python3
 
-from jcmscmd import profcmd
+from jcms.cmd import profcmd
 profcmd.run ()

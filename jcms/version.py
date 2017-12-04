@@ -55,7 +55,9 @@ def extModules ():
 
 def packages ():
     f = glob ('*/__init__.py')
-    f.extend (glob ('*/migrations/__init__.py'))
+    f.extend (glob ('*/*/__init__.py'))
+    f.extend (glob ('jcms/*/__init__.py'))
+    f.extend (glob ('jcms/*/*/__init__.py'))
     l = []
     for m in sorted (f):
         if m.endswith ('__init__.py'):

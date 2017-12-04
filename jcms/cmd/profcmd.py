@@ -1,13 +1,11 @@
-#!/usr/bin/env python3
-
 import io
 from os import path
 import pstats
 import cProfile
-from jcmscmd import testcmd
+from jcms.cmd import testcmd
 
 
-SRCDIR = path.dirname (path.dirname (path.abspath (__file__))) + path.sep
+SRCDIR = path.dirname (path.dirname (path.dirname (path.abspath (__file__)))) + path.sep
 STATENTRYNO = 6
 ENTRY_FMT = '{0:>6} {1:>7} {2:>7} {3:>7} {4:>7} {5:<}'
 
@@ -33,7 +31,7 @@ class ProfStats (object):
         stats = pstats.Stats (filename)
         stats.sort_stats ('ncalls', 'cumtime')
         stats.stream = io.StringIO ()
-        stats.print_stats ("{}.*".format (SRCDIR))
+        stats.print_stats (r"^{}".format (SRCDIR))
         stats.stream.seek (0, 0)
         eno = 0
         readheader = True
