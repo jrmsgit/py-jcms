@@ -58,6 +58,7 @@ dist:
 
 .PHONY: check
 check:
+	@$(PYTHON) setup.py check
 	@$(PYTHON) manage.py check
 
 .PHONY: test
